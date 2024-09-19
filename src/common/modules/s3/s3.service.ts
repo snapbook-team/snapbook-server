@@ -57,6 +57,11 @@ export class S3Service {
     return `${this.#S3PublicUrl}/${key}`;
   }
 
+  /**
+   * 이미지를 AWS S3에 업로드합니다.
+   * @param base64Pdf 업로드할 pdf의 base64 문자열
+   * @returns 업로드된 pdf의 URL
+   */
   async uploadPdf(key: string, base64Pdf: string): Promise<string> {
     const buffer = Buffer.from(base64Pdf, "base64");
 
