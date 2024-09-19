@@ -5,8 +5,7 @@ import { CustomOrigin } from "@nestjs/common/interfaces/external/cors-options.in
 import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 
-import { AppModule } from "src/modules";
-
+import { AppModule } from "./app";
 import { swagger } from "./common/providers/swagger.module";
 
 async function bootstrap() {
