@@ -25,7 +25,7 @@ model Manuscript {
   id        String   @id @default(cuid())
   bookId    String   @unique
   book      Book     @relation(fields: [bookId], references: [id])
-  path      String
+  url       String
   createdAt DateTime @default(now())
 }
 
@@ -33,6 +33,6 @@ model Image {
   id        String   @id @default(cuid())
   bookId    String
   book      Book     @relation(fields: [bookId], references: [id])
-  path      String
+  url       String
   createdAt DateTime @default(now())
 }
