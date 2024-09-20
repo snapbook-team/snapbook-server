@@ -7,14 +7,14 @@ Backend service for the [Snapbook](https://github.com/snapbook-team)
 ## Dependency Installation
 
 ```
-npm i -g yarn
-yarn install
+npm i -g pnpm
+pnpm install
 ```
 
 ## Build
 
 ```
-yarn build
+pnpm run build
 ```
 
 # Start
@@ -22,13 +22,13 @@ yarn build
 ## Production mode
 
 ```
-yarn start:prod
+pnpm run start:prod
 ```
 
 ## Development mode
 
 ```
-yarn start:dev
+pnpm run start:dev
 ```
 
 # Docs
