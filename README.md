@@ -1,7 +1,6 @@
 # Description
 
-Template of a gateway server for managing gRPC modules.
-This template is based on the use of submodules
+Backend service for the [Snapbook](https://github.com/snapbook-team)
 
 # Bootstrap
 
