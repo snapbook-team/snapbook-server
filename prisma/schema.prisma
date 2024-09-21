@@ -12,9 +12,18 @@ enum UserRole {
   PUBLISHER
 }
 
+enum Provider {
+  GENERAL
+  GOOGLE
+}
+
 model User {
   id           String        @id @default(cuid())
+  provider     Provider
+  providerId   String?
+  email        String        @unique
   username     String
+  password     String?
   role         UserRole      @default(WRITER)
   profileImage ProfileImage?
   project      Project[]
