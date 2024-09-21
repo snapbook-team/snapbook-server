@@ -18,7 +18,7 @@ enum Provider {
 }
 
 model User {
-  id           String        @id @default(cuid())
+  id           String        @id @default(uuid())
   provider     Provider
   providerId   String?
   email        String        @unique
@@ -31,7 +31,7 @@ model User {
 }
 
 model ProfileImage {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   userId    String   @unique
   user      User     @relation(fields: [userId], references: [id])
   url       String
@@ -39,7 +39,7 @@ model ProfileImage {
 }
 
 model Project {
-  id        String      @id @default(cuid())
+  id        String      @id @default(uuid())
   user      User        @relation(fields: [userId], references: [id])
   userId    String
   book      Book?
@@ -48,7 +48,7 @@ model Project {
 }
 
 model Book {
-  id          String      @id @default(cuid())
+  id          String      @id @default(uuid())
   title       String
   description String
   projectId   String      @unique
@@ -58,7 +58,7 @@ model Book {
 }
 
 model Manuscript {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   bookId    String   @unique
   book      Book     @relation(fields: [bookId], references: [id])
   url       String
@@ -66,7 +66,7 @@ model Manuscript {
 }
 
 model CardImage {
-  id        String   @id @default(cuid())
+  id        String   @id @default(uuid())
   projectId String
   project   Project  @relation(fields: [projectId], references: [id])
   url       String
