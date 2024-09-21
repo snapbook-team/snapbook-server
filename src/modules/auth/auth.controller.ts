@@ -8,6 +8,7 @@ import {
   ApiBody,
   ApiOkResponse,
   ApiOperation,
+  ApiTags,
   ApiUnauthorizedResponse,
 } from "@nestjs/swagger";
 
@@ -17,6 +18,7 @@ import { AuthService } from "./auth.service";
 import { LoginDTO } from "./dto/login.dto";
 import { TokenDTO } from "./dto/token.dto";
 
+@ApiTags("Auth")
 @Controller("auth")
 export class AuthController {
   constructor(
@@ -27,7 +29,7 @@ export class AuthController {
   @Post("login")
   @ApiBody({ type: LoginDTO })
   @UseGuards(AuthGuard("local"))
-  @ApiOperation({ summary: "일반 로그인" })
+  @ApiOperation({ summary: "일반 로그인", description: "일반 로그인" })
   @ApiOkResponse({ description: "JWT 토큰", type: TokenDTO })
   @ApiUnauthorizedResponse({ description: "Unauthorized" })
   public async login(@CurrentUser() user: User) {
@@ -36,12 +38,18 @@ export class AuthController {
 
   @Get("google")
   @UseGuards(AuthGuard("google"))
-  @ApiOperation({ summary: "구글 로그인" })
+  @ApiOperation({
+    summary: "구글 로그인",
+    description: "구글 로그인 페이지로 리다이렉트됩니다.",
+  })
   public async googleLogin() {}
 
   @Get("google/callback")
   @UseGuards(AuthGuard("google"))
-  @ApiOperation({ summary: "구글 로그인 콜백" })
+  @ApiOperation({
+    summary: "구글 로그인 콜백",
+    description: `구글 로그인 후 \`\${FRONTEND_URL}/auth?token=\${token}\` 으로 리다이렉트됩니다.`,
+  })
   public async googleLoginCallback(
     @CurrentUser() user: User,
     @Res() res: Response,
