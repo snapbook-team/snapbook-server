@@ -1,6 +1,8 @@
 import { User } from "@prisma/client";
+import { Response } from "express";
 
-import { Body, Controller, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Post, Res, UseGuards } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { AuthGuard } from "@nestjs/passport";
 import {
   ApiBody,
@@ -17,7 +19,10 @@ import { TokenDTO } from "./dto/token.dto";
 
 @Controller("auth")
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly configService: ConfigService,
+  ) {}
 
   @Post("login")
   @ApiBody({ type: LoginDTO })
@@ -27,5 +32,22 @@ export class AuthController {
   @ApiUnauthorizedResponse({ description: "Unauthorized" })
   public async login(@CurrentUser() user: User) {
     return await this.authService.createJwtToken(user.id);
+  }
+
+  @Get("google")
+  @UseGuards(AuthGuard("google"))
+  @ApiOperation({ summary: "구글 로그인" })
+  public async googleLogin() {}
+
+  @Get("google/callback")
+  @UseGuards(AuthGuard("google"))
+  @ApiOperation({ summary: "구글 로그인 콜백" })
+  public async googleLoginCallback(
+    @CurrentUser() user: User,
+    @Res() res: Response,
+  ) {
+    res.redirect(
+      `${this.configService.get("FRONTEND_URL")}/auth?token=${await this.authService.createJwtToken(user.id)}`,
+    );
   }
 }
