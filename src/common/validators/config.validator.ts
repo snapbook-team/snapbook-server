@@ -15,6 +15,7 @@ export const ConfigValidator = Joi.object({
   CACHE_MAX: Joi.number().default(100),
   DATABASE_URL: Joi.string().required(),
   JWT_SECRET: Joi.string().required(),
+  JWT_ACCESS_TOKEN_EXP: Joi.string().default("7d"),
   POSTGRES_USER: Joi.string().required(),
   POSTGRES_PASSWORD: Joi.string().required(),
   POSTGRES_DB: Joi.string().required(),
@@ -24,4 +25,8 @@ export const ConfigValidator = Joi.object({
   S3_REGION: Joi.string().required(),
   S3_ACCESS_KEY: Joi.string().required(),
   S3_SECRET_KEY: Joi.string().required(),
+  FRONTEND_URL: Joi.string().required(),
+  GOOGLE_CLIENT_ID: Joi.string().required(),
+  GOOGLE_CLIENT_SECRET: Joi.string().required(),
+  GOOGLE_CALLBACK_URL: Joi.string().required(),
 });
