@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import { Response } from "express";
 
-import { Body, Controller, Get, Post, Res, UseGuards } from "@nestjs/common";
+import { Controller, Get, Post, Res, UseGuards } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { AuthGuard } from "@nestjs/passport";
 import {
@@ -46,7 +46,7 @@ export class AuthController {
     @CurrentUser() user: User,
     @Res() res: Response,
   ) {
-    res.redirect(
+    return res.redirect(
       `${this.configService.get("FRONTEND_URL")}/auth?token=${await this.authService.createJwtToken(user.id)}`,
     );
   }
