@@ -25,5 +25,7 @@ export class AuthController {
   @ApiOperation({ summary: "일반 로그인" })
   @ApiOkResponse({ description: "JWT 토큰", type: TokenDTO })
   @ApiUnauthorizedResponse({ description: "Unauthorized" })
-  public async login(@CurrentUser() user: User) {}
+  public async login(@CurrentUser() user: User) {
+    return await this.authService.createJwtToken(user.id);
+  }
 }

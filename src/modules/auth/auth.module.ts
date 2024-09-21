@@ -1,4 +1,5 @@
 import { Module } from "@nestjs/common";
+import { JwtModule } from "@nestjs/jwt";
 
 import { UserModule } from "src/modules/user";
 
@@ -9,7 +10,7 @@ import { GoogleStrategy } from "./strategies/google.strategy";
 import { LocalStrategy } from "./strategies/local.strategy";
 
 @Module({
-  imports: [UserModule],
+  imports: [JwtModule.register({}), UserModule],
   controllers: [AuthController],
   providers: [AuthService, AccessJwtStrategy, GoogleStrategy, LocalStrategy],
 })
