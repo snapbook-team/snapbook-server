@@ -1,4 +1,5 @@
 import { $Enums } from "@prisma/client";
+import { hash } from "bcrypt";
 
 import { Injectable } from "@nestjs/common";
 
@@ -18,6 +19,15 @@ export class UserService {
       where: {
         provider,
         providerId,
+      },
+    });
+  }
+
+  public async findOneByEmailAndPassword(email: string, password: string) {
+    return await this.prisma.user.findFirst({
+      where: {
+        email,
+        password: await hash(password, 10),
       },
     });
   }
