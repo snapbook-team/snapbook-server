@@ -30,7 +30,10 @@ export class GoogleStrategy extends PassportStrategy(Strategy, "google") {
     try {
       const { id, emails, displayName } = profile;
 
-      const user = this.userService.findOneByProvider(Provider.GOOGLE, id);
+      const user = await this.userService.findOneByProvider(
+        Provider.GOOGLE,
+        id,
+      );
       if (user) return done(null, user);
 
       const email = emails[0].value;
